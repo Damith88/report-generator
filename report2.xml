@@ -1,0 +1,21 @@
+<report>
+    <type>csv</type>
+    <description>Total turnover per day</description>
+    <description>This report generates total turnover for all brands per day for the given date period</description>
+    <query>select date_format(gmv.date, "%Y-%m-%d"), sum(gmv.turnover) / 1.21 as total
+        from gmv
+        where gmv.date between :startDate AND :endDate
+        group by gmv.date</query>
+    <display_fields>
+        <display_field>Date</display_field>
+        <display_field>Total turnover</display_field>
+    </display_fields>
+    <filter_fields>
+        <filter_field name="startDate" type="date" required="true"></filter_field>
+        <filter_field name="endDate" type="date" required="true"></filter_field>
+    </filter_fields>
+    <validation_rules>
+        <validation_rule field="startDate">required|date</validation_rule>
+        <validation_rule field="endDate">required|date</validation_rule>
+    </validation_rules>
+</report>
